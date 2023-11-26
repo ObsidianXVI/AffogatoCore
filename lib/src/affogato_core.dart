@@ -1,0 +1,2 @@
+library affogato_core;
+
