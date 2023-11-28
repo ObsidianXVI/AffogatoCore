@@ -1,5 +1,5 @@
 name: affogato_core
-description: A starting point for Dart libraries or applications.
+description: AffogatoCore is the powerhouse behind the AffogatoEditor, which provides an intuitive and feature-rich code editing experience in Flutter.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
@@ -8,7 +8,6 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
 
 dev_dependencies:
   lints: ^2.0.0
