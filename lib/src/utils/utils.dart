@@ -28,4 +28,5 @@ class CursorLocation {
 
 extension StringUtils on String {
   List<String> get chars => split('');
+  bool get isEOF => this == eofStr;
 }
