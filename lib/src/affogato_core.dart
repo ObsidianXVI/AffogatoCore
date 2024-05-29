@@ -1,7 +1,5 @@
 library affogato_core;
 
-import 'dart:ffi';
-
 part './document.dart';
 
 part './language_bundle/language_bundle.dart';
@@ -22,11 +20,3 @@ part './delta_handler/delta.dart';
 part './language_definition/native_bnf.dart';
 
 part './utils/utils.dart';
-
-void main(List<String> args) {
-  final c = Cursor("ala\nb\nama");
-  print(c.peek());
-  print(c.peek(2));
-  print(c.advance());
-  print(c.peek());
-}

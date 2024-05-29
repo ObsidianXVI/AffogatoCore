@@ -5,11 +5,11 @@ typedef Char = String;
 const String eofStr = '<EOF>';
 
 class TokenType {
-  final String lexeme;
+  final String name;
 
-  const TokenType(this.lexeme);
+  const TokenType(this.name);
 
-  const TokenType.eof() : lexeme = eofStr;
+  const TokenType.eof() : name = eofStr;
 }
 
 class Cursor {
@@ -18,17 +18,13 @@ class Cursor {
   int col = 0;
   int row = 0;
 
-  Cursor(this.source)
-      : charMap = source.split('\n').map((e) => e.split('')).toList();
+  Cursor(this.source) : charMap = source.createCharMap();
 
-  CursorLocation location([CursorLocation? offset]) => CursorLocation(
-        rowNum: (offset?.rowNum ?? 0) + row,
-        colNum: (offset?.colNum ?? 0) + col,
-      );
+  CursorLocation location() => CursorLocation(rowNum: row, colNum: col);
 
-  Char get current => reachedEOF ? TokenType.eof().lexeme : charMap[row][col];
+  Char get current => charMap[row][col];
   bool get reachedEOF {
-    return row + 1 == charMap.length && col + 1 > charMap[row].length;
+    return row == charMap.length - 1 && col == charMap[row].length - 1;
   }
 
   T _nextCharOrElse<T>({
@@ -38,16 +34,14 @@ class Cursor {
   }) {
     int newRow = row;
     int newCol = col;
-    final Char curr = current;
 
-    // Cannot advance row
-    if (row == charMap.length && col == charMap[row - 1].length) {
-      return orElse();
-    }
-    // Cannot advance col in current row
-    if (col == charMap[row].length) {
-      newRow += 1;
-      newCol = 0;
+    if (col == charMap[row].length - 1) {
+      if (row == charMap.length - 1) {
+        return orElse();
+      } else {
+        newRow = newRow + 1;
+        newCol = 0;
+      }
     } else {
       newCol += 1;
     }
@@ -56,46 +50,41 @@ class Cursor {
       row = newRow;
       col = newCol;
     }
-    return withNextChar(curr);
+
+    return withNextChar(charMap[newRow][newCol]);
   }
 
-  List<Char> peek([int lookAhead = 1]) {
-    final List<Char> res = [];
-    int newRow = row;
-    int newCol = col;
-    Char curr = current;
-
-    int remainingLookAheads = lookAhead;
-    while (remainingLookAheads != 0) {
-      // Cannot advance row
-      if (newRow == charMap.length && newCol == charMap[newRow - 1].length) {
-        res.add(TokenType.eof().lexeme);
-        return res;
-      }
-      // Cannot advance col in current row
-      if (newCol == charMap[newRow].length) {
-        newRow += 1;
-        newCol = 0;
+  List<Char> peek({int lookAhead = 1, int? r, int? c}) {
+    final Char res;
+    if ((r ?? row) == charMap.length - 1 &&
+        (c ?? col) == charMap[(r ?? row)].length - 1) {
+      res = TokenType.eof().name;
+    } else {
+      if ((c ?? col) == charMap[(r ?? row)].length - 1) {
+        c = 0;
+        r = (r ?? row) + 1;
       } else {
-        newCol += 1;
+        c = (c ?? col) + 1;
       }
-
-      res.add(curr);
-      curr = charMap[newRow][newCol];
-      remainingLookAheads -= 1;
+      res = charMap[(r ?? row)][(c)];
     }
-    return res;
+
+    if ((lookAhead -= 1) > 0) {
+      return [res, ...peek(lookAhead: lookAhead, r: r, c: c)];
+    } else {
+      return [res];
+    }
   }
 
   Char advance() => _nextCharOrElse(
         withNextChar: (Char c) => c,
-        orElse: () => TokenType.eof().lexeme,
+        orElse: () => TokenType.eof().name,
         updateState: true,
       );
 
   void skip() => _nextCharOrElse(
         withNextChar: (Char c) => c,
-        orElse: () => TokenType.eof().lexeme,
+        orElse: () => TokenType.eof().name,
         updateState: true,
       );
 
