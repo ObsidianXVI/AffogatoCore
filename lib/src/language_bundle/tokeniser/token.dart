@@ -17,4 +17,7 @@ class Token {
 
   bool containsChar(CursorLocation location) =>
       start <= location && location <= end;
+
+  String toPrettyString() =>
+      "[${tokenType.value}] $start..$end $lexeme (${literal ?? ''})";
 }
