@@ -4,14 +4,6 @@ typedef Char = String;
 
 const String eofStr = '<EOF>';
 
-class TokenType {
-  final String name;
-
-  const TokenType(this.name);
-
-  const TokenType.eof() : name = eofStr;
-}
-
 class Cursor {
   final String source;
   final List<List<Char>> charMap;
@@ -58,7 +50,7 @@ class Cursor {
     final Char res;
     if ((r ?? row) == charMap.length - 1 &&
         (c ?? col) == charMap[(r ?? row)].length - 1) {
-      res = TokenType.eof().name;
+      res = TokenType.eof().value;
     } else {
       if ((c ?? col) == charMap[(r ?? row)].length - 1) {
         c = 0;
@@ -78,13 +70,13 @@ class Cursor {
 
   Char advance() => _nextCharOrElse(
         withNextChar: (Char c) => c,
-        orElse: () => TokenType.eof().name,
+        orElse: () => TokenType.eof().value,
         updateState: true,
       );
 
   void skip() => _nextCharOrElse(
         withNextChar: (Char c) => c,
-        orElse: () => TokenType.eof().name,
+        orElse: () => TokenType.eof().value,
         updateState: true,
       );
 
