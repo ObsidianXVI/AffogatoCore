@@ -1,5 +1,5 @@
 part of affogato_core;
 
-abstract class SynaxHighlighter {
-  List<RenderToken<T>> createRenderTokens<T>(AST ast);
+abstract class SyntaxHighlighter<T extends RenderToken> {
+  List<T> createRenderTokens(AST ast);
 }
