@@ -44,11 +44,9 @@ extension StringUtils on String {
     final List<List<Char>> charMap = [[]];
     for (int i = 0; i < chars.length; i++) {
       charMap.last.add(chars[i]);
-      if (chars[i] == '\n') {
-        charMap.add([]);
-      }
+      if (chars[i] == '\n') charMap.add([]);
     }
-
+    charMap.last.add(eofStr);
     return charMap;
   }
 }

@@ -47,6 +47,7 @@ class TokenType {
   const TokenType.decimal() : value = 'Decimal';
   const TokenType.identifier() : value = 'Identifier';
   const TokenType.newline() : value = '\n';
+  const TokenType.unkown() : value = 'Unknown';
 
   @override
   bool operator ==(Object? other) =>
