@@ -40,11 +40,14 @@ class TokenCursor {
         updateState: true,
       );
 
-  void skip() => _nextTokOrElse(
-        withNextTok: (Token _) => _,
-        orElse: () => eofToken,
-        updateState: true,
-      );
+  /// This method is strictly used to skip insignificant tokens, typically whitespace,
+  /// which will not end up in the actual AST.
+  void skip(ParseResult parseResult) {
+    if (current.tokenType != TokenType.eof()) {
+      parseResult.ast.nodes.add(InsignificantASTNode()..tokens.add(current));
+    }
+    advance();
+  }
 
   bool nextMatchesType(TokenType type) => _nextTokOrElse(
         withNextTok: (Token t) => t.tokenType == type,
