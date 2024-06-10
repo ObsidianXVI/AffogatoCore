@@ -2,10 +2,10 @@ part of affogato_core;
 
 /// Matches a [Token] to a specific styling of type [T]. The styling properties are defined
 /// by subclasses that extend this base class.
-abstract class RenderToken<T> {
+abstract class RenderToken<T, D> {
   final ASTNode node;
 
   const RenderToken(this.node);
 
-  T render();
+  T render(D defaultStyle);
 }

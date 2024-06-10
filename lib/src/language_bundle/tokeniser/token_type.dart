@@ -42,6 +42,8 @@ class TokenType {
   const TokenType.greaterThan() : value = '>';
   const TokenType.greaterThanEqual() : value = '>=';
   const TokenType.space() : value = ' ';
+  const TokenType.doubleQuote() : value = '"';
+  const TokenType.singleQUote() : value = "'";
   const TokenType.string() : value = 'String';
   const TokenType.integer() : value = 'Integer';
   const TokenType.decimal() : value = 'Decimal';

@@ -1,5 +1,9 @@
 part of affogato_core;
 
 abstract class Parser {
-  AST parse(List<Token> tokens);
+  ParseResult parse(List<Token> tokens);
+}
+
+class ParseResult {
+  final AST ast = AST(nodes: []);
 }

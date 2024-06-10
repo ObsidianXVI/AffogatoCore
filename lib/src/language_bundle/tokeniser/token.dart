@@ -20,4 +20,12 @@ class Token {
 
   String toPrettyString() =>
       "[${tokenType.value}] $start..$end $lexeme (${literal ?? ''})";
+
+  @override
+  bool operator ==(Object? other) =>
+      (other is Token) &&
+      start == other.start &&
+      end == other.end &&
+      lexeme == other.lexeme &&
+      tokenType == other.tokenType;
 }

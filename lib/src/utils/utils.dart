@@ -39,6 +39,7 @@ class CursorLocation {
 extension StringUtils on String {
   List<String> get chars => split('');
   bool get isEOF => this == eofStr;
+  bool get isWhitespace => this == '\n' || this == ' ';
 
   List<List<Char>> createCharMap() {
     final List<List<Char>> charMap = [[]];
