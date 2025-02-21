@@ -15,6 +15,7 @@ part './language_bundle/interpreter/interpreter.dart';
 part './theme_bundle/theme_bundle.dart';
 part './theme_bundle/syntax_highlighter.dart';
 part './theme_bundle/render_token.dart';
+part './theme_bundle/editor_theme.dart';
 
 part './delta_handler/delta_handler.dart';
 part './delta_handler/delta.dart';
