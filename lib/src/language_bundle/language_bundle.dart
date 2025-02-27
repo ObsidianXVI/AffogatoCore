@@ -5,11 +5,13 @@ class LanguageBundle {
   final Tokeniser tokeniser;
   final Parser parser;
   final Interpreter interpreter;
+  final List<String> fileAssociationContributions;
 
   const LanguageBundle({
     required this.bundleName,
     required this.tokeniser,
     required this.parser,
     required this.interpreter,
+    required this.fileAssociationContributions,
   });
 }
